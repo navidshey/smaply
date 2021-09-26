@@ -1,5 +1,5 @@
 import React from "react";
-const ProjectList = React.lazy(() => import("./../project/ProjectList"));
+const ProjectList = React.lazy(() => import("./../../project/ProjectList"));
 const NotFount = React.lazy(() => import("./NotFound"));
 import { Route, Switch } from "react-router-dom";
 

@@ -1,10 +1,15 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import React, { Suspense } from "react";
+import React, { Suspense  } from "react";
 import { Provider } from "react-redux";
 import Inter from "./assets/font/Inter/Inter-Regular.ttf";
-import Spinner from "./components/custom/Spinner/Spinner";
-import MyRoute from "./components/custom/MyRoute";
+import Spinner from "./components/custom/spinner/Spinner";
+import MyRoute from "./components/custom/other/MyRoute";
 import store from "./store/store";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./components/custom/other/ErrorFallback";
+import { SnackbarContainer } from './context/SnackbakContext';
+import CustomSnackBar from './components/custom/snackBar/CustomSnackbar';
+
 
 const theme = createTheme({
   typography: {
@@ -24,11 +29,16 @@ const theme = createTheme({
 function App() {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Suspense fallback={<Spinner />}>
-          <MyRoute></MyRoute>
-        </Suspense>
-      </ThemeProvider>
+      <SnackbarContainer>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <ThemeProvider theme={theme}>
+          <Suspense fallback={<Spinner />}>
+            <CustomSnackBar />
+            <MyRoute></MyRoute>
+          </Suspense>
+        </ThemeProvider>
+      </ErrorBoundary>
+      </SnackbarContainer>
     </Provider>
   );
 }

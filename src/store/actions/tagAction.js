@@ -3,27 +3,28 @@ import { actionKeyType } from "../constants";
 
 export const getTags = () => (dispatch) => {
   dispatch(setLoading());
-  setTimeout(function () {
-    dispatch({
-      type: actionKeyType.GET_TAGS,
-      payload: tags,
-    });
-  }, 1500);
+
   // axios
   //   .get(apiRoutes.getTags)
-  //   .then((response) =>
-  //     dispatch({
-  //       type: actionKeyType.GET_TAGS,
-  //       payload: response.data,
-  //     })
-  //   )
-  //   .catch(() =>
-  //     dispatch({
-  //       type: actionKeyType.Error,
-  //       payload: "some thing wrong !",
-  //     })
-  //   );
+    new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(Object.assign([], tags));
+    }, 1500);})
+    .then((response) =>
+      dispatch({
+        type: actionKeyType.GET_TAGS,
+        payload: response,
+      })
+    )
+    .catch(() =>
+      dispatch({
+        type: actionKeyType.TAG_ERROR,
+        payload: "some thing wrong !",
+      })
+    );
 };
+
+
 
 const setLoading = () => {
   return {

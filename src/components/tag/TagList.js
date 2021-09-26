@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getTags } from "./../../store/actions/tagAction";
+import { SnackbarContext } from './../../context/SnackbakContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,13 +18,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function TagList({ selected }) {
   const tagDispatch = useDispatch();
-  const { tags, loading } = useSelector((state) => state.tags);
+  const { tags, error, loading } = useSelector((state) => state.tags);
   const isFirstRender = React.useRef(true);
+  const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
     if (isFirstRender.current && !tags) {
       isFirstRender.current = false;
       tagDispatch(getTags());
+       setSnackbar('Tags are Fetching!');
     }
   }, []);
 
@@ -31,6 +34,7 @@ export default function TagList({ selected }) {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Item>
+          {error && <div> {error} </div> }
           {loading && !tags && <div>Loading tags ...</div>}
           {tags &&
             tags
@@ -45,6 +49,7 @@ export default function TagList({ selected }) {
                   />
                 );
               })}
+              {tags && selected.length == 0 && <div> No tag selected</div>}
         </Item>
       </Grid>
     </Grid>

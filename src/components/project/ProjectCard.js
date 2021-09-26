@@ -7,16 +7,12 @@ import Typography from "@mui/material/Typography";
 import { PropTypes } from "prop-types";
 import TagList from "../tag/TagList";
 import TagAdd from "./../tag/TagAdd";
-// import useHover from "./../../hooks/useHover";
 
-export default function ProjectCard({ color, title, updateAt, tags }) {
-  //TODO: it is better to use 'usehover' hook which is reusable but has a bug on option hover
-  // const hoverRef = useRef(null);
-  // const isHover = useHover(hoverRef);
+export default function ProjectCard({ color, title, updateAt, tags, id }) {
+  //TODO: If hover is using somewhere else beeter to use hook
   const [isShown, setIsShown] = useState(false);
   const cardBackground = color ?? "blue";
   return (
-    // <Card sx={{ maxWidth: 1 }} ref={hoverRef}>
     <Card
       sx={{ maxWidth: 1 }}
       onMouseEnter={() => setIsShown(true)}
@@ -29,7 +25,7 @@ export default function ProjectCard({ color, title, updateAt, tags }) {
       </CardMedia>
       <CardContent>
         {!isShown && <TagList selected={tags}></TagList>}
-        {isShown && <TagAdd selected={tags}></TagAdd>}
+        {isShown && <TagAdd selected={tags} projectId={id}></TagAdd>}
       </CardContent>
       <CardActions disableSpacing>
         <Typography>LAST CHANGES {updateAt}</Typography>
@@ -39,6 +35,7 @@ export default function ProjectCard({ color, title, updateAt, tags }) {
 }
 
 ProjectCard.propTypes = {
+  id: PropTypes.String,
   title: PropTypes.string.isRequired,
   color: PropTypes.string,
   updateAt: PropTypes.string.isRequired,

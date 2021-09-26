@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Autocomplete from "@mui/material/Autocomplete";
-import CustomTextField from "./CustomTextField";
+import CustomTextField from "./../textField/CustomTextField";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
+
 
 export default function CustomComboBox({
   id,
@@ -13,12 +14,15 @@ export default function CustomComboBox({
   placeHolder,
   options,
   defaultValue,
+  onChange
 }) {
+
   return (
     <Autocomplete
       size="small"
       multiple
       id={id ?? `${label}-combobox`}
+      onChange={onChange}
       options={options}
       getOptionLabel={(option) => option.title}
       renderOption={(props, option) => (
@@ -37,6 +41,7 @@ export default function CustomComboBox({
           label={label}
           placeholder={placeHolder}
           multiline={true}
+           onChange={onChange}
           {...params}
         />
       )}
@@ -50,4 +55,5 @@ CustomComboBox.propTypes = {
   placeHolder: PropTypes.string,
   defaultValue: PropTypes.array,
   options: PropTypes.array,
+  onChange: PropTypes.func,
 };
