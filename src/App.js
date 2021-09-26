@@ -8,7 +8,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/custom/other/ErrorFallback";
 import { SnackbarContainer } from './context/SnackbakContext';
 import CustomSnackBar from './components/custom/snackBar/CustomSnackbar';
-import Spinner from './components/custom/spinner/Spinner';
+import Spinner from './components/custom/Spinner/Spinner';
 
 
 const theme = createTheme({

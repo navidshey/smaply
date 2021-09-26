@@ -4,7 +4,7 @@ import ProjectCard from "./ProjectCard";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProjects } from "../../store/actions/projectAction";
-import Spinner from "../custom/spinner/Spinner";
+import Spinner from "../custom/Spinner/Spinner";
 
 export default function ProjectList() {
   const projectDispatch = useDispatch();
